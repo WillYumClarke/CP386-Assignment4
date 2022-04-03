@@ -93,5 +93,23 @@ int main(int argc, char *argv[])
         for (j = 0; j < mResources; j++)
             need[i][j] = max[i][j] - allocated[i][j];
     }
+
+    char command[10];
+    while (1){
+        printf("Enter Command: ");
+        scanf("%s", command);
+        if (strcmp(command , "Exit") == 0)
+            break;
+        if (strcmp(&command[0], "R") && strcmp(&command[1], "Q")){
+            printf("requested\n");
+        }
+        else if (strcmp(&command[0], "R") && strcmp(&command[1] , "L")){
+            printf("leaving\n");
+        }
+        else if (strcmp(command, "Run")){
+            printf("run\n");
+        }
+
+    }
     return 0;
 }
