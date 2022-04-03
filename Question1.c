@@ -99,11 +99,14 @@ int main(int argc, char *argv[])
     for (int i = 0; i < nCustomers; i++)
         safeSequence[i] = -1;
 
-    char command[10];
+    char command[200];
+    char RQ[] = "RQ";
+    char RL[] = "RL";
     while (1)
     {
         printf("Enter Command: ");
-        scanf("%s", command);
+        scanf("%20s", command);
+        printf("%s", command);
         if (strcmp(command, "Exit") == 0)
             break;
 
@@ -143,14 +146,25 @@ int main(int argc, char *argv[])
                 printf("\n");
             }
         }
-        else if (strcmp(&command[0], "R") == 0 && strcmp(&command[1], "Q") == 0)
+        else if (strncmp(command, RQ, 1) == 0)
         {
             printf("requested\n");
+            int requested[200];
+            j=0;
+            printf("len = %ld", strlen(command));
+            // for (i = 0; i <= strlen(command); i++)
+            // {
+            //     if (isdigit(command[i]) == 0) {
+            //         requested[j] = command[i];
+            //         printf("%d\n", requested[j]);
+            //         j++;
+            //     }
+            // }
         }
-        else if (strcmp(&command[0], "R") == 0 && strcmp(&command[1], "L") == 0)
-        {
-            printf("leaving\n");
-        }
+        // else if (strncmp(command, RL, 1) == 0)
+        // {
+        //     printf("leaving\n");
+        // }
     }
     free(available);
     for (i = i; i < nCustomers; i++)
@@ -167,29 +181,53 @@ int main(int argc, char *argv[])
 
 int findSafeSequence()
 {
+    // the safety sequence algorithm as discussed in class
+    // int i,j,k;
+    // int work[mResources], finish[nCustomers];
+    // for (i=0;i<nCustomers;i++)
+    //     finish[i] = -1;
+    // for (i=0; i<mResources;i++)
+    //     work[i] = available[i];
+
+    // for (i=0;i<nCustomers; i++){
+    //     if (finish[i] == 1 && need[i] <work) {
+    //         work = work + allocated[i];
+    //         finish[i] = 0; // set finish[i] to true
+    //     }
+    // }
+    // int nfinish = 0;
+    // for (i=0;i<nCustomers;i++)
+    //     if (finish[i] == 0)
+    //         nfinish++;
+
+    // if (nfinish == nCustomers-1)
+    //     return 0;
+    // else
+    //     return 1;
     int i, j, k;
-    int tempAvailable[mResources];
+    int work[mResources];
     for (i = 0; i < mResources; i++)
     {
-        tempAvailable[i] = available[i];
+        work[i] = available[i];
     }
-    int finished[nCustomers]; // initalize an array to store if its checked each resource
+    int finish[nCustomers]; // initalize an array to store if its checked each resource
     for (i = 0; i < nCustomers; i++)
-        finished[i] = 1; // make each value start as false
+        finish[i] = 1; // make each value start as false
 
-    int nfinished = 0; // initalize a value to store how many times you check each resource
-    while (nCustomers > nfinished)
+    int nfinish = 0; // initalize a value to store how many times you check each resource
+
+    while (nCustomers > nfinish)
     {
         int safety = 1; // initalize a value to change if the sequence is safe, default false
 
         for (i = 0; i < nCustomers; i++)
         {
-            if (finished[i] = 1)
+            if (finish[i] = 1)
             {
                 int tempSafety = 0; // a temporary saftey checker, default true
                 for (j = 0; j < mResources; j++)
                 {
-                    if (need[i][j] > tempAvailable[i])
+                    if (need[i][j] > work[i])
                     {
                         tempSafety = 1; // temp safety is false
                         break;
@@ -199,12 +237,12 @@ int findSafeSequence()
                 {
                     for (j = 0; j < mResources; j++)
                     {
-                        tempAvailable[j] += allocated[i][j];
+                        work[j] += allocated[i][j];
                     }
                     safety = 0; // sequence is safe
-                    finished[i] = 0;
-                    nfinished++;
-                    safeSequence[nfinished - 1] = i;
+                    finish[i] = 0;
+                    nfinish++;
+                    safeSequence[nfinish - 1] = i;
                 }
             }
         }
