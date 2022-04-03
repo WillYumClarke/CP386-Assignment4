@@ -13,7 +13,6 @@ int **allocated;            // initalize allocated array
 // int **max;                  // initalize max array
 int **need; // initalize need array
 
-void *runCode(void *);  // function to run the user entered code
 int findSafeSequence(); // function to find the safe sequence, returns 1 if true, 0 if false
 
 //  gcc Question1.c -o Question1
@@ -70,20 +69,22 @@ int main(int argc, char *argv[])
     //         printf("\n");
     //     }
     int max[5][4] = {{6, 4, 7, 3},
-                                       {4, 2, 3, 2},
-                                       {2, 5, 3, 3},
-                                       {6, 3, 3, 2},
-                                       {5, 5, 7, 5}};
+                     {4, 2, 3, 2},
+                     {2, 5, 3, 3},
+                     {6, 3, 3, 2},
+                     {5, 5, 7, 5}};
 
     // }
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 4; j++) {
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
             printf("%d ", max[i][j]);
         }
         printf("\n");
     }
 
-    //calculate the need matrix
+    // calculate the need matrix
     need = (int **)malloc(nCustomers * sizeof(*need)); // create a 2d array for need, size nCustomers by mResources
     for (i = 0; i < nCustomers; i++)
         need[i] = (int *)malloc(mResources * sizeof(**need));
@@ -94,22 +95,85 @@ int main(int argc, char *argv[])
             need[i][j] = max[i][j] - allocated[i][j];
     }
 
+    safeSequence = (int *)malloc(nCustomers * sizeof(*safeSequence)); // initalize an array of all -1 to change if the sequence is safe
+    for (int i = 0; i < nCustomers; i++)
+        safeSeq[i] = -1;
+
     char command[10];
-    while (1){
+    while (1)
+    {
         printf("Enter Command: ");
         scanf("%s", command);
-        if (strcmp(command , "Exit") == 0)
+        if (strcmp(command, "Exit") == 0)
             break;
-        if (strcmp(&command[0], "R") && strcmp(&command[1], "Q")){
+        if (strcmp(&command[0], "R") && strcmp(&command[1], "Q"))
+        {
             printf("requested\n");
         }
-        else if (strcmp(&command[0], "R") && strcmp(&command[1] , "L")){
+        else if (strcmp(&command[0], "R") && strcmp(&command[1], "L"))
+        {
             printf("leaving\n");
         }
-        else if (strcmp(command, "Run")){
+        else if (strcmp(command, "Run"))
+        {
             printf("run\n");
         }
-
     }
+    free(available);
+    for (i = i i < nCustomers; i++)
+    {
+        free(max[i]);
+        free(need[i]);
+        free(allocated[i]);
+    }
+    free(max);
+    free(need);
+    free(allocated);
     return 0;
+}
+
+int findSafeSequence()
+{
+    int tempAvailable[mResources];
+    for (i = 0; i < mResources; i++)
+    {
+        tempAvailable[i] = available[i];
+    }
+    int finished[nCustomers]; // initalize an array to store if its checked each resource
+    for (i = 0; i < nCustomers; i++)
+        finished[i] = 1; // make each value start as false
+
+    int nfinished = 0; // initalize a value to store how many times you check each resource
+    while (nCustomers > nfinished)
+    {
+        int safety = 1; // initalize a value to change if the sequence is safe, default false
+
+        for (i = 0; i < nCustomers; i++)
+        {
+            if (finished[i] = 1)
+            {
+                int tempSafety = 0; // a temporary saftey checker, default true
+                for (j = 0; j < mResources; j++)
+                {
+                    if (need[i][j] > tempAvailable[i][j])
+                    {
+                        tempSafety = 1; // temp safety is false
+                        break;
+                    }
+                }
+                if (tempSafety == 0)
+                {
+                    for (j = 0; j < mResources; j++)
+                    {
+                        tempAvailable[j] += allocated[i][j];
+                    }
+                    safety = 0; // sequence is safe
+                    finished[i] = 0;
+                    nfinished++;
+                    safeSequence[nfinished-1] = i;
+
+                }
+            }
+        }
+    }
 }
