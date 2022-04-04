@@ -1,3 +1,8 @@
+/*
+Repository URL: https://github.com/WillYumClarke/CP386-Assignment4
+
+Author: William Clarke 190524800 Git: WillYumClarke
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
