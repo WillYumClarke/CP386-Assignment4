@@ -1,7 +1,7 @@
 # CP386-Assignment4
 
 # Makefile
->```CC = gcc
+```CC = gcc
 CFLAGS =  -Wall -g -std=gnu99
 LDFLAGS = -lrt -lpthread 
 TARGET = Question1 Question2 
@@ -37,7 +37,7 @@ run:    runs the user entered commands
 # Test Cases
 
 # Use Examples
->```Number of Cutsomers: 5
+```Number of Cutsomers: 5
 Currently Available Resources: 10 5 7 8 
 6 4 7 3 
 4 2 3 2 
