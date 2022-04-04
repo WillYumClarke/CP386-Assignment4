@@ -29,17 +29,26 @@ clean:
 that I sent him my project files for the first half of the assignment a week before it was dueand him never doing
 the second half or handing anything in, so please be gracious since I had double the work 
 
-# Feature
->main:    Initalizes all variables and  contains main loop
->findSafeSequence:    Finds the safe sequence if there is one
->request:    Processes a users request for resources
->release:    releases resources
->status:    prints the current status
+# Features
+
+## Question 1
+```
+main:    Initalizes all variables and  contains main loop
+findSafeSequence:    Finds the safe sequence if there is one
+request:    Processes a users request for resources
+release:    releases resources
+status:    prints the current status of resources
 run:    runs the user entered commands
+```
+## Question 2
+```
+main:    Initalizes all variables and  contains main loop
+request:    requests memory for entered process
+release:    releases memory for entered process
+status:    prints the current status of memory
+```
 
-# Test Cases
-
-# Use Examples
+# Test Cases/Use Examples
 ```Number of Cutsomers: 5
 Currently Available Resources: 10 5 7 8 
 6 4 7 3 

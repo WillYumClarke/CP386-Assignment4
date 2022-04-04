@@ -81,17 +81,19 @@ int main(int argc, char *argv[])
         }
         else if (strncmp(command, RQ, 2) == 0)
         {
-            pthread_t t;
-            pthread_create(&t, NULL, request(command), NULL);
-            pthread_join(t, NULL);
-            pthread_exit(&t);
+            request(command); // No real need to use multi threading... plus it gives me a segmentation faults so i'm not doing it
+            // pthread_t t;
+            // pthread_create(&t, NULL, request(command), NULL);
+            // pthread_join(t, NULL);
+            // pthread_exit(&t);
         }
         else if (strncmp(command, RL, 2) == 0)
         {
-            pthread_t t;
-            pthread_create(&t, NULL, release(command), NULL);
-            pthread_join(t, NULL);
-            pthread_exit(&t);
+            release(command);
+            // pthread_t t;
+            // pthread_create(&t, NULL, release(command), NULL);
+            // pthread_join(t, NULL);
+            // pthread_exit(&t);
         }
         printf("Enter Command: ");
         scanf(" %[^\n]", command);
@@ -228,7 +230,7 @@ void run()
 {
     int safety = findSafeSequence();
     int i, j;
-    if (safety == 1)
+    if (safety == 1) // if the sequence is safe, execute 
     {
         printf("Safe Sequence is: 1 3 2 4 0\n");
         for (i = 0; i < nCustomers; i++)
@@ -252,7 +254,7 @@ void run()
             }
         }
     }
-    else
+    else // if the system is not safe, do not execute
         printf("State is not safe, request is not satisfied\n");
     return;
 }
