@@ -1,5 +1,5 @@
 # CP386-Assignment4
-
+>Banker's Algorithm && Best Fit Algorithm
 # Makefile
 ```CC = gcc
 CFLAGS =  -Wall -g -std=gnu99
@@ -21,6 +21,8 @@ clean:
 ```
 
 # Screenshots
+![2022-04-04](https://user-images.githubusercontent.com/97199189/161626615-ff21c529-0269-4176-9155-65bcc227e34a.png)
+![2022-04-04 (1)](https://user-images.githubusercontent.com/97199189/161626632-e074fcc3-a47c-4518-860c-8c9395292d04.png)
 
 # Individual Contribution
 >All functions were written by myself, I originally had a partner but the prof seperated us due to me having evidence
@@ -118,6 +120,6 @@ Safe Sequence is: 1 3 2 4 0
 ```
 
 # About Developers
-William Clarke
-190524800
-clar5248@mylaurier.ca
+>William Clarke
+>190524800
+>clar5248@mylaurier.ca
