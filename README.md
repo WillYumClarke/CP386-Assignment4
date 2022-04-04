@@ -18,7 +18,7 @@ runq2: Question
 	./Question2 1000000
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~
-    ```
+```
 
 # Screenshots
 
@@ -115,7 +115,7 @@ Safe Sequence is: 1 3 2 4 0
     Thread has started
     Thread has finished
     Thread is releasing resources;    New Available: 3 1 4 5
-    ```
+```
 
 # About Developers
 William Clarke
