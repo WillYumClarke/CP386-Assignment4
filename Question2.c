@@ -11,66 +11,92 @@ Author: William Clarke 190524800 Git: WillYumClarke
 #include <sys/stat.h>
 #include <time.h>
 
-void allocate();
-void release();
-
-struct Process {
-    int allocated;
-    int beg;
-    int end;
+struct Process
+{
+    int pNum;      // process number
+    int allocated; // amount of memory allocated
+    int beg;       // begining of memory allocated
+    int end;       // end of memory allocated
 };
+struct Process *P1 = NULL;
+struct Process *P2 = NULL;
+struct Process *P3 = NULL;
+struct Process *P4 = NULL;
 
+void status(struct Process *ProcessArray[4]);
+void release(char command[]);
+void request(char command[]);
+
+int MAX, available; // global variables
 int main(int argc, char *argv[])
 {
-    int MAX;
+    struct Process *ProcessArray[4];
+    ProcessArray[0] = P1;
+    ProcessArray[1] = P2;
+    ProcessArray[2] = P3;
+    ProcessArray[3] = P4;
     sscanf(argv[1], "%d", &MAX);
-    int memory[MAX];
-    for (int i=0; i<MAX; i++){ // the memory array will store a value of -1 if it is free, 0 if it is used by process 0, 1 if by process 1 and so on
-        memory[i] = -1;
-    }
-    int allocatedMem = 0;
-    printf("Allocated %d bytes of memory\n", MAX);
-    char *command;
-    char *algo;
-    size_t len = 0;
-    ssize_t read = 0;
-    char process[1];
-    int mem, prev = -1, curr, beg = 0, end = 0;
-    while (1)
-    {
-        printf("command>");
-        getline(&command, &len, stdin);
-        if (strncmp(command, "Exit", 3) == 0)
-            break;
-        else if (strncmp(command, "Status", 6))
-        {
-            // printf("Partitions [Allocated memory = %d", allocatedMem);
-            // int i=0,j=0,k=0;
-            // if (memory[0] == -1){
-            //     while memory[0] = -1{
-            //         i++;
-            //     }
-            // }
-            // beg = i;
-            // prev = memory[beg+1]; 
-            // for (i; i<max; i++){
+    available = MAX;
 
-            // }
-        }
-        else if (strncmp(command, "RQ", 2) == 0)
+    printf("Allocated %d bytes of memory\n", MAX);
+
+    char command[20];
+    char RQ[3] = "RQ ";
+    char RL[3] = "RL ";
+    printf("command>");
+    scanf(" %[^\n]", command);
+    while (strcmp(command, "Exit") != 0)
+    {
+        if (strncmp(command, "Status", 2) == 0)
         {
-            sscanf(&command[3], "%c", &process[0]);
-            sscanf(&command[4], "%c", &process[1]);
-            sscanf(&command[6], "%d", &mem);
-            sscanf(&command[len - 1], "%c", algo);
-            // printf("process: %s\n", process);
-            // printf("mem: %d\n", mem);
-            // printf("algo: %s\n", algo);
+            status(ProcessArray);
         }
-        else if (strncmp(command, "RL", 2) == 0)
+        else if (strncmp(command, RQ, 2) == 0)
         {
-            sscanf(&command[3], "%c", &process[0]);
-            sscanf(&command[4], "%c", &process[1]);
+            request(command);
+        }
+        else if (strncmp(command, RL, 2) == 0)
+        {
+            release(command);
         }
     }
+    return 0;
+}
+
+void status(struct Process *ProcessArray[4])
+{
+    int i = 0, j;
+    printf("Partitions [Allocated memory = %d:\n", MAX - available);
+    while (i < 4)
+    {
+        if (ProcessArray[i] != NULL)
+        {
+            printf("Address [%d:%d] Process of P%d\n", ProcessArray[i]->beg, ProcessArray[i]->end, ProcessArray[i]->pNum);
+        }
+        i++;
+    }
+    printf("Holes [Free memory = %d]\n", available);
+    while (i < 4)
+    {
+        if (ProcessArray[i] == NULL)
+        {
+            if (i == 0)
+                printf("Address [0:%d] len = %d\n", ProcessArray[i + 1]->beg - 1, ProcessArray[i + 1]->beg);
+            else if (i != 1 && i != 3)
+                printf("Address [%d:%d] len = %d\n", ProcessArray[i - 1]->end + 1, ProcessArray[i + 1]->beg - 1, (ProcessArray[i + 1]->beg - 1) - (ProcessArray[i - 1]->end + 1));
+            else
+            {
+                printf("Address [%d:%d] len = %d\n", ProcessArray[i - 1]->end - 1, MAX - 1, Max - (ProcessArray[i - 1]->end - 1));
+            }
+        }
+        i++;
+    }
+    return;
+}
+void release(char command[])
+{
+    int i, j;
+}
+void request(char command[])
+{
 }

@@ -21,23 +21,17 @@ int max[5][4] = {{6, 4, 7, 3},  // initalize max array
                  {6, 3, 3, 2},
                  {5, 5, 7, 5}}; // im not bothering to read it from the file, assignment instructions said i could hardcode it so i did
 
-int findSafeSequence();       // function to find the safe sequence, returns 1 if true, 0 if false
-void request(char command[]); // function if the user requests resources
-void release(char command[]); // function if the user releases resources
-void status();                // function if the user requests the status
-void run();                   // function if the user requests to run
+int findSafeSequence();        // function to find the safe sequence, returns 1 if true, 0 if false
+void *request(char command[]); // function if the user requests resources
+void *release(char command[]); // function if the user releases resources
+void status();                 // function if the user requests the status
+void run();                    // function if the user requests to run
 
 //  gcc Question1.c -o Question1
 // ./Question1 10 5 7 8
 int main(int argc, char *argv[])
 {
     int i, j;
-    // FILE *fp = fopen("sample4_in.txt", "r");
-    // if (fp == NULL)
-    // {
-    //     printf("file cannot be found\n");
-    // }
-
     printf("Number of Cutsomers: "); // request number of customers
     scanf("%d", &nCustomers);
 
@@ -68,7 +62,7 @@ int main(int argc, char *argv[])
             need[i][j] = max[i][j] - allocated[i][j];
     }
     char command[20];
-    char ch;
+    //char ch;
     char RQ[3] = "RQ ";
     char RL[3] = "RL ";
     printf("Enter Command: ");
@@ -87,11 +81,17 @@ int main(int argc, char *argv[])
         }
         else if (strncmp(command, RQ, 2) == 0)
         {
-            request(command);
+            pthread_t t;
+            pthread_create(&t, NULL, request(command), NULL);
+            pthread_join(t, NULL);
+            pthread_exit(&t);
         }
         else if (strncmp(command, RL, 2) == 0)
         {
-            release(command);
+            pthread_t t;
+            pthread_create(&t, NULL, release(command), NULL);
+            pthread_join(t, NULL);
+            pthread_exit(&t);
         }
         printf("Enter Command: ");
         scanf(" %[^\n]", command);
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void request(char command[])
+void *request(char command[])
 {
     int i, j;
     char tempRequested[7];
@@ -130,10 +130,10 @@ void request(char command[])
     }
     else
         printf("State is not safe, and request is not satisfied\n");
-    return;
+    return 0;
 }
 
-void release(char command[]) // almost identical to request
+void *release(char command[]) // almost identical to request
 {
     printf("release");
     int i, j;
@@ -166,7 +166,7 @@ void release(char command[]) // almost identical to request
     }
     else
         printf("State is not safe, and request is not satisfied\n");
-    return;
+    return 0;
 }
 
 void status()
