@@ -1,17 +1,38 @@
 # CP386-Assignment4
 
 # Makefile
-## Question1
->Question1: 190524800_a04_q1.c
-    gcc -o Question1 190524800_a04_q1.c
+CC = gcc
+CFLAGS =  -Wall -g -std=gnu99
+LDFLAGS = -lrt -lpthread 
+TARGET = Question1 Question2 
+OBJFILES = Question1.o Question2.o 
+all: $(TARGET)
+Question1: Question1.c
+	$(CC) $(CFLAGS) -o Question1 Question1.c $(LDFLAGS)
+Question2: Question2.c
+	$(CC) $(CFLAGS) -o Question2 Question2.c $(LDFLAGS)
+
+runq1: Question1
+	./Question1 10 5 7 8
+runq2: Question
+	./Question2 1000000
+clean:
+	rm -f $(OBJFILES) $(TARGET) *~
+
 # Screenshots
 
 # Individual Contribution
->All the work was done by myself, I originally had a partner but the prof seperated us due to me having evidence
+>All functions were written by myself, I originally had a partner but the prof seperated us due to me having evidence
 that I sent him my project files for the first half of the assignment a week before it was dueand him never doing
 the second half or handing anything in, so please be gracious since I had double the work 
 
 # Features
+>main:    Initalizes all variables and  contains main loop
+>findSafeSequence:    Finds the safe sequence if there is one
+>request:    Processes a users request for resources
+>release:    releases resources
+>status:    prints the current status
+run:    runs the user entered commands
 
 # Test Cases
 
@@ -95,3 +116,6 @@ Safe Sequence is: 1 3 2 4 0
     Thread is releasing resources;    New Available: 3 1 4 5
 
 # About Developers
+William Clarke
+190524800
+clar5248@mylaurier.ca
