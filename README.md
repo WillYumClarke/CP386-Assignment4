@@ -1,7 +1,7 @@
 # CP386-Assignment4
 
 # Makefile
-CC = gcc
+`CC = gcc
 CFLAGS =  -Wall -g -std=gnu99
 LDFLAGS = -lrt -lpthread 
 TARGET = Question1 Question2 
@@ -17,7 +17,7 @@ runq1: Question1
 runq2: Question
 	./Question2 1000000
 clean:
-	rm -f $(OBJFILES) $(TARGET) *~
+	rm -f $(OBJFILES) $(TARGET) *~`
 
 # Screenshots
 
@@ -26,7 +26,7 @@ clean:
 that I sent him my project files for the first half of the assignment a week before it was dueand him never doing
 the second half or handing anything in, so please be gracious since I had double the work 
 
-# Features
+# Feature
 >main:    Initalizes all variables and  contains main loop
 >findSafeSequence:    Finds the safe sequence if there is one
 >request:    Processes a users request for resources
@@ -37,7 +37,7 @@ run:    runs the user entered commands
 # Test Cases
 
 # Use Examples
->Number of Cutsomers: 5
+>`Number of Cutsomers: 5
 Currently Available Resources: 10 5 7 8 
 6 4 7 3 
 4 2 3 2 
@@ -113,7 +113,7 @@ Safe Sequence is: 1 3 2 4 0
     Available:  3 1 4 5
     Thread has started
     Thread has finished
-    Thread is releasing resources;    New Available: 3 1 4 5
+    Thread is releasing resources;    New Available: 3 1 4 5`
 
 # About Developers
 William Clarke
